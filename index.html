@@ -13,15 +13,21 @@
 
 	<div class="container">
 
-		<h1>FIFA World Cup<sup>TM</sup></h1>
-		<h2>All Time Statistics</h2>
+		<div class="row">
+			<h1>FIFA World Cup<sup>TM</sup></h1>
+			<h2>All Time Statistics</h2>
+		</div>
 
-		<!-- Parent container for the visualization -->
-		<div id="chart-area"></div>
+		<div class="row">
+			<!-- Parent container for the visualization -->
+			<div id="chart-area" class="col-md-9"></div>
+			<!-- Info window -->
+			<div id="info-window" class="col-md-3">
+
+			</div>
+		</div>
 
 	</div>
-
-
 
 	<!-- Load JS libraries: jQuery, bootstrap, D3, D3 tooltip -->
 	<script src="js/jquery.min.js"></script>
@@ -29,7 +35,7 @@
 	<script src="js/d3.min.js"></script>
 	<script src="js/d3.tip.js"></script>
 
-	<!-- Your implementation -->
+	<!-- Main -->
 	<script src="js/main.js"></script>
 </body>
 </html>

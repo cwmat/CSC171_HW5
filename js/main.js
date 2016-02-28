@@ -95,11 +95,11 @@ function updateVisualization() {
 	// Update axiis
   svg.select(".y-axis")
       .transition()
-      .duration(2000)
+      .duration(1000)
       .call(yAxis);
   svg.select(".x-axis")
       .transition()
-      .duration(2000)
+      .duration(1000)
       .call(xAxis);
 
 	// Make line object for use in path
@@ -114,7 +114,7 @@ function updateVisualization() {
 
 	// Data join
 	// Path
-	var path = svg.selectAll("path")
+	var path = svg.selectAll(".line")
 			.data(data);
 
 	// Dots
@@ -126,10 +126,12 @@ function updateVisualization() {
 	// Path
 	path.transition()
 			.duration(1000)
-			.attr("class", "line")
+			// .attr("class", "line")
 			.attr("d", line(data));
 
 	// Dots
+	var dotSize = 5;
+
 	dots.transition()
 			.duration(1000)
 			.attr({
@@ -147,8 +149,6 @@ function updateVisualization() {
 			.attr("d", line(data));
 
 	//Dots
-	var dotSize = 5;
-
 	dots.enter()
 		.append("circle")
 			.attr({

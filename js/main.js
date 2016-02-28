@@ -16,16 +16,38 @@ var svg = d3.select("#chart-area").append("svg")
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+	// Scales
+var x = d3.time.scale()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+// Axiis
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var yAxisGroup = svg.append("g")
+    .attr("class", "y-axis axis");
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var xAxisGroup = svg.append("g")
+    .attr("class", "x-axis axis")
+    .attr("transform", "translate(0," + height + ")");
+
 
 // Date parser (https://github.com/mbostock/d3/wiki/Time-Formatting)
 var formatDate = d3.time.format("%Y");
 
+// FIFA world cup
+var data;
 
 // Initialize data
 loadData();
-
-// FIFA world cup
-var data;
 
 
 // Load CSV file
@@ -60,9 +82,79 @@ function loadData() {
 
 // Render visualization
 function updateVisualization() {
-
   console.log(data);
 
+	// Retrieve current selection
+	var currentSelection = d3.select("#chart-data-select").property("value");
+
+	// Update Domains
+	x.domain(d3.extent(data, function(d) { return d.YEAR; }));
+	y.domain([0, d3.max(data, function(d) { return d.GOALS; })]);
+
+
+	// Update axiis
+  svg.select(".y-axis")
+      .transition()
+      .duration(2000)
+      .call(yAxis);
+  svg.select(".x-axis")
+      .transition()
+      .duration(2000)
+      .call(xAxis);
+
+	// Make line object for use in path
+	var line = d3.svg.line()
+      .x(function(d) {
+        return x(d.YEAR);
+      })
+      .y(function(d) {
+        return y(d.GOALS);
+      })
+			.interpolate("monotone");
+
+	// Data join
+	// Path
+	var path = svg.selectAll("path")
+			.data(data);
+
+	// Dots
+	var dots = svg.selectAll("circle")
+			.data(data);
+
+
+	// Update
+	// Path
+	path.transition()
+			.duration(1000)
+			.attr();
+
+	// Dots
+	dots.transition()
+			.duration(1000)
+			.attr();
+
+	// Enter
+	// Path
+	path.enter()
+		.append("path")
+			.attr("class", "line")
+			.attr("d", line(data));
+
+	//Dots
+	var dotSize = 5;
+
+	dots.enter()
+		.append("circle")
+			.attr({
+				cx: function(d) { return x(d.YEAR); },
+				cy: function(d) {return y(d.GOALS); },
+				r: dotSize,
+				class: "dots",
+			});
+
+	// Exit
+	path.exit().remove();
+	dots.exit().remove();
 }
 
 

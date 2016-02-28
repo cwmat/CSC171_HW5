@@ -1,5 +1,47 @@
 
 /* Extra */
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.portfolio-item {
+    margin-bottom: 25px;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+.page-header {
+  margin-bottom: 0.25em;
+}
+
+.line {
+  fill: none;
+  stroke: #FF0000;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-size: 10px;
+}
+
+.path {
+  fill: purple,
+  fill-opacity: 0.50
+}
+
+
+
+
+
+
 
 
 

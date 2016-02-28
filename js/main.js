@@ -89,7 +89,7 @@ function updateVisualization() {
 
 	// Update Domains
 	x.domain(d3.extent(data, function(d) { return d.YEAR; }));
-	y.domain([0, d3.max(data, function(d) { return d.GOALS; })]);
+	y.domain([0, d3.max(data, function(d) { return d[currentSelection]; })]);
 
 
 	// Update axiis
@@ -108,7 +108,7 @@ function updateVisualization() {
         return x(d.YEAR);
       })
       .y(function(d) {
-        return y(d.GOALS);
+        return y(d[currentSelection]);
       })
 			.interpolate("monotone");
 
@@ -126,12 +126,18 @@ function updateVisualization() {
 	// Path
 	path.transition()
 			.duration(1000)
-			.attr();
+			.attr("class", "line")
+			.attr("d", line(data));
 
 	// Dots
 	dots.transition()
 			.duration(1000)
-			.attr();
+			.attr({
+				cx: function(d) { return x(d.YEAR); },
+				cy: function(d) {return y(d[currentSelection]); },
+				r: dotSize,
+				class: "dots",
+			});
 
 	// Enter
 	// Path
@@ -147,7 +153,7 @@ function updateVisualization() {
 		.append("circle")
 			.attr({
 				cx: function(d) { return x(d.YEAR); },
-				cy: function(d) {return y(d.GOALS); },
+				cy: function(d) {return y(d[currentSelection]); },
 				r: dotSize,
 				class: "dots",
 			});

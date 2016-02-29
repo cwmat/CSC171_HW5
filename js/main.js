@@ -1,3 +1,6 @@
+// Disable forms
+$('form').submit(false);
+
 // SVG drawing area
 
 var margin = {
@@ -44,7 +47,8 @@ var xAxisGroup = svg.append("g")
 var formatDate = d3.time.format("%Y");
 
 // FIFA world cup
-var data;
+var data,
+		filtered;
 
 // Initialize data
 loadData();
@@ -72,6 +76,7 @@ function loadData() {
 
       // Store csv data in global variable
       data = csv;
+			filtered = csv;
 
       // Draw the visualization for the first time
       updateVisualization();
@@ -82,14 +87,14 @@ function loadData() {
 
 // Render visualization
 function updateVisualization() {
-  console.log(data);
+  console.log(filtered);
 
 	// Retrieve current selection
 	var currentSelection = d3.select("#chart-data-select").property("value");
 
 	// Update Domains
-	x.domain(d3.extent(data, function(d) { return d.YEAR; }));
-	y.domain([0, d3.max(data, function(d) { return d[currentSelection]; })]);
+	x.domain(d3.extent(filtered, function(d) { return d.YEAR; }));
+	y.domain([0, d3.max(filtered, function(d) { return d[currentSelection]; })]);
 
 
 	// Update axiis
@@ -115,11 +120,11 @@ function updateVisualization() {
 	// Data join
 	// Path
 	var path = svg.selectAll(".line")
-			.data(data);
+			.data(filtered);
 
 	// Dots
 	var dots = svg.selectAll("circle")
-			.data(data);
+			.data(filtered);
 
 
 	// Update
@@ -127,7 +132,7 @@ function updateVisualization() {
 	path.transition()
 			.duration(1000)
 			// .attr("class", "line")
-			.attr("d", line(data));
+			.attr("d", line(filtered));
 
 	// Dots
 	var dotSize = 5;
@@ -146,7 +151,7 @@ function updateVisualization() {
 	path.enter()
 		.append("path")
 			.attr("class", "line")
-			.attr("d", line(data));
+			.attr("d", line(filtered));
 
 	//Dots
 	dots.enter()
@@ -163,6 +168,31 @@ function updateVisualization() {
 	dots.exit().remove();
 }
 
+// Filter data based on click event
+function filterData() {
+	var startRange = d3.select("#start-range").property("value")
+	var endRange = d3.select("#end-range").property("value")
+
+	filtered = data.filter(function(d) {
+		// console.log(d.YEAR);
+		if (d.YEAR >= formatDate.parse(startRange) && d.YEAR <= formatDate.parse(endRange)) {
+			return d;
+		}
+	});
+
+	console.log(filtered);
+	updateVisualization();
+}
+
+// Clear Filter
+function clearFilter() {
+	filtered = data;
+
+	$("#start-range").val("1930");
+	$("#end-range").val("2014");
+
+	updateVisualization();
+}
 
 // Show details for a specific FIFA World Cup
 function showEdition(d) {

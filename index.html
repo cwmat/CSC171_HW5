@@ -69,12 +69,14 @@
 				</form>
 			</div>
 			<div id="time-period" class="col-md-6">
-				<form class="time-period-form form-inline">
+				<form class="time-period-form form-inline" return false;>
 					<div class="form-group">
 						<label>Time Period: </label>
-						<input type="start-range" class="form-control" id="start-range" placeholder="1930">
-						<input type="end-range" class="form-control" id="end-range" placeholder="2014">
-						<button id="time-period-button" type="submit" class="btn btn-default">Filter</button>
+						<input type="number"  min="1930" max="2014" name="start-range" class="form-control" id="start-range" placeholder="1930" value="1930">
+						<input type="number" min="1930" max="2014" name="end-range" class="form-control" id="end-range" placeholder="2014" value="2014">
+						<button id="time-period-button" type="submit" class="btn btn-default" onclick="filterData()">Filter</button>
+						<!-- <span id="time-period-button" type="submit" class="btn btn-default" onclick="filterData()">Filter</span> -->
+						<button id="clear-filter" type="submit" class="btn btn-default" onclick="clearFilter()">Clear Filter</button>
 					</div>
 
 				</form>

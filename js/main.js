@@ -43,12 +43,17 @@ var xAxisGroup = svg.append("g")
     .attr("transform", "translate(0," + height + ")");
 
 
+// Transition Speed
+var transitionSpeed = 800;
+
+
 // Date parser (https://github.com/mbostock/d3/wiki/Time-Formatting)
 var formatDate = d3.time.format("%Y");
 
 // FIFA world cup
 var data,
-		filtered;
+		filtered,
+		tip;
 
 // Initialize data
 loadData();
@@ -92,6 +97,10 @@ function updateVisualization() {
 	// Retrieve current selection
 	var currentSelection = d3.select("#chart-data-select").property("value");
 
+	// Initialize tool tip
+	tip = d3.tip().attr('class', 'd3-tip').html(function(d) { return "<p>" + d.EDITION + "</p><p>" + d[currentSelection] + "</p>"; });
+	svg.call(tip);
+
 	// Update Domains
 	x.domain(d3.extent(filtered, function(d) { return d.YEAR; }));
 	y.domain([0, d3.max(filtered, function(d) { return d[currentSelection]; })]);
@@ -100,11 +109,11 @@ function updateVisualization() {
 	// Update axiis
   svg.select(".y-axis")
       .transition()
-      .duration(1000)
+      .duration(transitionSpeed)
       .call(yAxis);
   svg.select(".x-axis")
       .transition()
-      .duration(1000)
+      .duration(transitionSpeed)
       .call(xAxis);
 
 	// Make line object for use in path
@@ -130,15 +139,15 @@ function updateVisualization() {
 	// Update
 	// Path
 	path.transition()
-			.duration(1000)
+			.duration(transitionSpeed)
 			// .attr("class", "line")
 			.attr("d", line(filtered));
 
 	// Dots
-	var dotSize = 5;
+	var dotSize = 7;
 
 	dots.transition()
-			.duration(1000)
+			.duration(transitionSpeed)
 			.attr({
 				cx: function(d) { return x(d.YEAR); },
 				cy: function(d) {return y(d[currentSelection]); },
@@ -161,7 +170,9 @@ function updateVisualization() {
 				cy: function(d) {return y(d[currentSelection]); },
 				r: dotSize,
 				class: "dots",
-			});
+			})
+			.on("mouseenter", tip.show)
+			.on("mouseleave", tip.hide);
 
 	// Exit
 	path.exit().remove();
@@ -193,6 +204,7 @@ function clearFilter() {
 
 	updateVisualization();
 }
+
 
 // Show details for a specific FIFA World Cup
 function showEdition(d) {

@@ -37,13 +37,9 @@ footer {
   fill-opacity: 0.50
 }
 
-
-
-
-
-
-
-
+.dots {
+  fill-opacity: 0.75;
+}
 
 
 /****************/
@@ -62,7 +58,7 @@ footer {
 
 .line {
   fill: none;
-  stroke: #1C9A3D;
+  stroke: #8a5cb8;
   stroke-width: 1.5px;
 }
 

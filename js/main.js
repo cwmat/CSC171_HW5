@@ -172,7 +172,8 @@ function updateVisualization() {
 				class: "dots",
 			})
 			.on("mouseenter", tip.show)
-			.on("mouseleave", tip.hide);
+			.on("mouseleave", tip.hide)
+			.on("click", function(d) { showEdition(d); });
 
 	// Exit
 	path.exit().remove();
@@ -208,5 +209,19 @@ function clearFilter() {
 
 // Show details for a specific FIFA World Cup
 function showEdition(d) {
+	var info = [
+		{data: d.EDITION, elem: $("#info-edition")},
+		{data: d.WINNER, elem: $("#info-winner")},
+		{data: d.LOCATION, elem: $("#info-location")},
+		{data: d.YEAR, elem: $("#info-year")},
+		{data: d.TEAMS, elem: $("#info-teams")},
+		{data: d.MATCHES, elem: $("#info-matches")},
+		{data: d.GOALS, elem: $("#info-goals")},
+		{data: d.AVERAGE_GOALS, elem: $("#info-avg-goals")},
+		{data: d.AVERAGE_ATTENDANCE, elem: $("#info-attendance")},
+	]
 
+	info.forEach(function(item) {
+		item.elem.text(item.data);
+	});
 }

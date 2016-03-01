@@ -47,11 +47,11 @@
 		</div>
 
 		<!-- Hero -->
-		<!-- <div class="row">
+		<div class="row">
 			<div class="col-lg-12">
-				<img class="img-responsive" src="img/zaatri_refugee_camp.jpg" alt="Za'atari Refugee camp aerial photo.">
+				<img class="img-responsive hero" src="img/grass.jpg" alt="Grass." max-height="200px">
 			</div>
-		</div> -->
+		</div>
 		<!-- /.row -->
 
 		<div class="row">
@@ -75,7 +75,6 @@
 						<input type="number"  min="1930" max="2014" name="start-range" class="form-control" id="start-range" placeholder="1930" value="1930">
 						<input type="number" min="1930" max="2014" name="end-range" class="form-control" id="end-range" placeholder="2014" value="2014">
 						<button id="time-period-button" type="submit" class="btn btn-default" onclick="filterData()">Filter</button>
-						<!-- <span id="time-period-button" type="submit" class="btn btn-default" onclick="filterData()">Filter</span> -->
 						<button id="clear-filter" type="submit" class="btn btn-default" onclick="clearFilter()">Clear Filter</button>
 					</div>
 
@@ -85,39 +84,39 @@
 			<div id="chart-area" class="col-md-7"></div>
 			<!-- Info window -->
 			<div id="info-window" class="col-md-5">
-				<h2 id="info-edition">{TEMP}</h2>
+				<h2 id="info-edition">Click a dot to get stats</h2>
 				<table class="table table-hover">
 					<tr>
 						<th>Winner</th>
-						<td id="info-winner">{TEMP}</td>
+						<td id="info-winner"></td>
 					</tr>
 					<tr>
 						<th>Location</th>
-						<td id="info-location">{TEMP}</td>
+						<td id="info-location"></td>
 					</tr>
 					<tr>
 						<th>Year</th>
-						<td id="info-year">{TEMP}</td>
+						<td id="info-year"></td>
 					</tr>
 					<tr>
 						<th>Teams</th>
-						<td id="info-teams">{TEMP}</td>
+						<td id="info-teams"></td>
 					</tr>
 					<tr>
 						<th>Matches</th>
-						<td id="info-matches">{TEMP}</td>
+						<td id="info-matches"></td>
 					</tr>
 					<tr>
 						<th>Goals</th>
-						<td id="info-goals">{TEMP}</td>
+						<td id="info-goals"></td>
 					</tr>
 					<tr>
 						<th>Average Goals</th>
-						<td id="info-avg-goals">{TEMP}</td>
+						<td id="info-avg-goals"></td>
 					</tr>
 					<tr>
 						<th>Average Attendance</th>
-						<td id="info-attendance">{TEMP}</td>
+						<td id="info-attendance"></td>
 					</tr>
 				</table>
 			</div>

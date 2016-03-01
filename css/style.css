@@ -41,6 +41,10 @@ footer {
   fill-opacity: 0.75;
 }
 
+.hero {
+  margin: 1em 0 2em 0;
+}
+
 
 /****************/
 /*  LINE CHART  */
